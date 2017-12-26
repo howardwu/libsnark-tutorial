@@ -1,5 +1,7 @@
 # libsnark-tutorial
 
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 In this library, we will create a simple zkSNARK application using [libsnark](https://www.github.com/SCIPR-Lab/libsnark), a C++ library for zkSNARK proofs. zkSNARKs enable a prover to succinctly convince any verifier of a given statement's validity without revealing any information aside from the statement's validity. This technology has formed the basis for protocols such as [Zcash](https://z.cash), a cryptocurrency that provides anonymity for users and their transactions.
 
 This tutorial will guide you through installing `libsnark`, setting up a development environment, and building a simple zkSNARK application. This library can be extended to support a testing framework, profiling infrastructure, and more.
@@ -15,7 +17,6 @@ This tutorial will guide you through installing `libsnark`, setting up a develop
   - [Development Framework](#development-framework)
 - [zkSNARK Application](#zksnark-application)
 - [Compilation](#compilation)
-- [Execution](#execution)
 - [Further Resources](#further-resources)
 - [License](#license)
 
@@ -84,13 +85,13 @@ This repository has the following dependencies, which come from `libsnark`:
 
 __This library includes the completed development environment. If you wish to use the provided environment, you may proceed to the [zkSNARK Application](#zksnark-application).__
 
+### Directory Structure
+
 We will create a library with the following directory structure:
 
 * [__src__](src): C++ source code
   <!-- * [__tests__](src/tests): collection of GTests -->
 * [__depends__](depends): dependency libraries
-
-### Directory Structure
 
 Start by creating a `src` directory and nested `test` directory.
 ```
@@ -237,7 +238,7 @@ Our application will make use of the [Groth16](https://github.com/scipr-lab/libs
 template<typename ppT>
 bool run_r1cs_gg_ppzksnark(const r1cs_example<libff::Fr<ppT> > &example)
 {
-	libff::print_header("R1CS GG-ppzkSNARK Generator");
+    libff::print_header("R1CS GG-ppzkSNARK Generator");
     r1cs_gg_ppzksnark_keypair<ppT> keypair = r1cs_gg_ppzksnark_generator<ppT>(example.constraint_system);
     printf("\n"); libff::print_indent(); libff::print_mem("after generator");
 
@@ -261,7 +262,7 @@ bool run_r1cs_gg_ppzksnark(const r1cs_example<libff::Fr<ppT> > &example)
 }
 ```
 
-We construct a sample circuit using an example provided by `libsnark`.
+Our application will construct a sample circuit, making use of the [binary input circuit](https://github.com/scipr-lab/libsnark/blob/master/libsnark/relations/constraint_satisfaction_problems/r1cs/examples/r1cs_examples.tcc#L100) example provided by `libsnark`.
 ```cpp
 template<typename ppT>
 void test_r1cs_gg_ppzksnark(size_t num_constraints, size_t input_size)
@@ -275,7 +276,7 @@ void test_r1cs_gg_ppzksnark(size_t num_constraints, size_t input_size)
 Lastly, we invoke the methods and construct a circuit with 1000 constraints and an input size of 100 elements.
 ```cpp
 int main () {
-	default_r1cs_gg_ppzksnark_pp::init_public_params();
+    default_r1cs_gg_ppzksnark_pp::init_public_params();
     test_r1cs_gg_ppzksnark<default_r1cs_gg_ppzksnark_pp>(1000, 100);
 
     return 0;
@@ -289,6 +290,8 @@ To compile this library, start by recursively fetching the dependencies.
 git submodule update --init --recursive
 ```
 
+Note, the submodules only need to be fetched once.
+
 Next, initialize the `build` directory.
 ```
 mkdir build && cd build && cmake ..
@@ -299,14 +302,32 @@ Lastly, compile the library.
 make
 ```
 
-## Execution
-
 To run the application, use the following command from the `build` directory:
 ```
 ./src/main
 ```
 
 ## Further Resources
+
+### Libraries
+* [libsnark](http://github.com/SCIPR-Lab/libsnark) - C++ library for zkSNARK proofs
+* [libfqfft](https://github.com/scipr-lab/libfqfft) - C++ library for FFTs in Finite Fields
+* [libff](https://github.com/scipr-lab/libff) - C++ library for Finite Fields and Elliptic Curves
+* [Zcash](https://github.com/zcash/zcash) - Internet Money, an implementation of the Zerocash protocol
+* [ZSL on Quorum](https://github.com/jpmorganchase/zsl-q) - Zero-knowledge security layer in JP Morgan Quorum
+* [ZoKrates](https://github.com/JacobEberhardt/ZoKrates) - A toolbox for zkSNARKs on Ethereum
+
+### Articles
+* [zkSNARKs Under the Hood](https://medium.com/@VitalikButerin/zk-snarks-under-the-hood-b33151a013f6) - Vitalik Buterin
+* [zkSNARKs in a nutshell](https://blog.ethereum.org/2016/12/05/zksnarks-in-a-nutshell/) - Christian Reitwiessner
+* [What are zkSNARKs?](https://z.cash/technology/zksnarks.html) - Zcash
+* [zkSNARK Reading List](https://tahoe-lafs.org/trac/tahoe-lafs/wiki/SNARKs) - Tahoe-LAFS
+
+### Talks
+* [Zerocash: Solving Bitcoin's Privacy Problem](https://www.youtube.com/watch?v=84Vbj7-i9CI) - Alessandro Chiesa
+* [SNARKs and their Practical Applications](https://simons.berkeley.edu/talks/eran-tromer-2015-06-10) - Eran Tromer
+* [Zcash, SNARKs, STARKs](https://www.youtube.com/watch?v=VUN35BC11Qw) - Eli Ben Sasson
+* [Democratizing zkSNARKs](https://www.youtube.com/watch?v=7BxoyEw6LUY) - Sean Bowe
 
 ## License
 

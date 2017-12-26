@@ -20,7 +20,7 @@ using namespace libsnark;
 template<typename ppT>
 bool run_r1cs_gg_ppzksnark(const r1cs_example<libff::Fr<ppT> > &example)
 {
-	libff::print_header("R1CS GG-ppzkSNARK Generator");
+    libff::print_header("R1CS GG-ppzkSNARK Generator");
     r1cs_gg_ppzksnark_keypair<ppT> keypair = r1cs_gg_ppzksnark_generator<ppT>(example.constraint_system);
     printf("\n"); libff::print_indent(); libff::print_mem("after generator");
 
@@ -52,7 +52,7 @@ void test_r1cs_gg_ppzksnark(size_t num_constraints, size_t input_size)
 }
 
 int main () {
-	default_r1cs_gg_ppzksnark_pp::init_public_params();
+    default_r1cs_gg_ppzksnark_pp::init_public_params();
     test_r1cs_gg_ppzksnark<default_r1cs_gg_ppzksnark_pp>(1000, 100);
 
     return 0;
