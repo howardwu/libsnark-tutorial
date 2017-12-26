@@ -2,7 +2,7 @@
 
 In this library, we will create a simple zkSNARK application using [libsnark](https://www.github.com/SCIPR-Lab/libsnark), a C++ library for zkSNARK proofs. zkSNARKs enable a prover to succinctly convince any verifier of a given statement's validity without revealing any information aside from the statement's validity. This technology has formed the basis for protocols such as [Zcash](https://z.cash), a cryptocurrency that provides anonymity for users and their transactions.
 
-This tutorial will guide you through installing `libsnark`, setting up the development environment, and building a simple zkSNARK application. This library can be easily extended to support a testing framework, profiling infrastructure, and more.
+This tutorial will guide you through installing `libsnark`, setting up a development environment, and building a simple zkSNARK application. This library can be extended to support a testing framework, profiling infrastructure, and more.
 
 ## Table of Contents
 
@@ -21,7 +21,7 @@ This tutorial will guide you through installing `libsnark`, setting up the devel
 
 ## Introduction
 
-Zero-knowledge proofs were first introduced by Shafi Goldwasser, Silvio Micali and Charles Rackoff at MIT. A zero-knowledge proof allows one party, the prover, to convince another party, the verifier, that a given statement is true, without revealing any information beyond the validity of the statement itself. A zkSNARK is a variant of a zero-knowledge proof that enables a prover to succinctly convince any verifier of the validity of a given statement and achieves computational zero-knowledge without requiring interaction between the prover and any verifier. 
+Zero-knowledge proofs were first introduced by Shafi Goldwasser, Silvio Micali and Charles Rackoff. A zero-knowledge proof allows one party, the prover, to convince another party, the verifier, that a given statement is true, without revealing any information beyond the validity of the statement itself. A zkSNARK is a variant of a zero-knowledge proof that enables a prover to succinctly convince any verifier of the validity of a given statement and achieves computational zero-knowledge without requiring interaction between the prover and any verifier. 
 
 zkSNARKs can be used to prove and verify, in zero-knowledge, the integrity of computations, expressed as NP statements, in forms such as the following:
 
@@ -82,7 +82,7 @@ This repository has the following dependencies, which come from `libsnark`:
 
 ## Development Environment
 
-__If you plan to use the development environment provided in this library, you may skip this section and proceed to the [zkSNARK Application](#zksnark-application).__
+__This library includes the completed development environment. If you wish to use the provided environment, you may proceed to the [zkSNARK Application](#zksnark-application).__
 
 We will create a library with the following directory structure:
 
@@ -199,8 +199,6 @@ Lastly, create a `CMakeLists.txt` file in the `src` directory.
 
 Start by creating a boilerplate `src/main.cpp` file.
 ```cpp
-#include <iostream>
-
 int main () {
     return 0;
 }
@@ -220,11 +218,18 @@ target_link_libraries(
 
   snark
 )
+target_include_directories(
+  main
+
+  PUBLIC
+  ${DEPENDS_DIR}/libsnark
+  ${DEPENDS_DIR}/libsnark/depends/libfqfft
+)
 ```
 
 ## zkSNARK Application
 
-__If you plan to use the zkSNARK application provided in this library, you may skip this section and proceed to [Compilation](#compilation).__
+__This library includes the completed zkSNARK application. If you wish to use the provided environment, you may proceed to [Compilation](#compilation).__
 
 Our application will make use of the [Groth16](https://github.com/scipr-lab/libsnark/tree/master/libsnark/zk_proof_systems/ppzksnark/r1cs_gg_ppzksnark) zkSNARK protocol as provided by `libsnark`. The protocol is comprised of a setup phase, proving phase, and verification phase. The setup is responsible for constructing the public parameters that the prover and verifier use. The prover provides their public and private inputs, along with the public parameters, to construct a succinct proof. Any verifier is then able to verify this proof using the verification key, public input, and proof. Note that the verification key is derived from the public parameters.
 
