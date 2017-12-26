@@ -1,7 +1,5 @@
 # libsnark-tutorial
 
-[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-
 In this library, we will create a simple zkSNARK application using [libsnark](https://www.github.com/SCIPR-Lab/libsnark), a C++ library for zkSNARK proofs. zkSNARKs enable a prover to succinctly convince any verifier of a given statement's validity without revealing any information aside from the statement's validity. This technology has formed the basis for protocols such as [Zcash](https://z.cash), a cryptocurrency that provides anonymity for users and their transactions.
 
 This tutorial will guide you through installing `libsnark`, setting up a development environment, and building a simple zkSNARK application. This library can be extended to support a testing framework, profiling infrastructure, and more.
@@ -331,5 +329,5 @@ To run the application, use the following command from the `build` directory:
 
 ## License
 
-[MIT License](LICENSE)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
