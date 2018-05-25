@@ -65,7 +65,7 @@ This repository has the following dependencies, which come from `libsnark`:
 
 * On Ubuntu 16.04 LTS:
 
-        $ sudo apt-get install build-essential cmake git libgmp3-dev libprocps4-dev python-markdown libboost-all-dev libssl-dev
+        $ sudo apt-get install build-essential cmake git libgmp3-dev libprocps4-dev python-markdown libboost-all-dev libssl-dev pkg-config
 
 * On Ubuntu 14.04 LTS:
 
