@@ -92,12 +92,12 @@ We will create a library with the following directory structure:
 * [__depends__](depends): dependency libraries
 
 Start by creating a `src` directory and nested `test` directory.
-```
+```bash
 mkdir src && mkdir src/test
 ```
 
 Next, create a dependency directory, called `depends`, and add `libsnark` as a submodule.
-```
+```bash
 mkdir depends && cd depends
 git submodule add https://github.com/scipr-lab/libsnark.git libsnark
 ```
@@ -105,7 +105,7 @@ git submodule add https://github.com/scipr-lab/libsnark.git libsnark
 ### Compilation Framework
 
 We will use `CMake` as our compilation framework. Start by creating a `CMakeLists.txt` file in the root directory and initialize it with the following.
-```
+```cmake
 cmake_minimum_required(VERSION 2.8)
 
 project(libsnark-tutorial)
@@ -196,7 +196,7 @@ add_subdirectory(src)
 ```
 
 Next, create a `CMakeLists.txt` file in the `depends` directory and include the `libsnark` dependency.
-```
+```cmake
 add_subdirectory(libsnark)
 ```
 
@@ -212,7 +212,7 @@ int main () {
 ```
 
 Next, create a `CMakeLists.txt` file in the `src` directory and link the `main.cpp` file as follows.
-```
+```cmake
 include_directories(.)
 
 add_executable(
@@ -292,24 +292,24 @@ int main () {
 ## Compilation
 
 To compile this library, start by recursively fetching the dependencies.
-```
+```bash
 git submodule update --init --recursive
 ```
 
 Note, the submodules only need to be fetched once.
 
 Next, initialize the `build` directory.
-```
+```bash
 mkdir build && cd build && cmake ..
 ```
 
 Lastly, compile the library.
-```
+```bash
 make
 ```
 
 To run the application, use the following command from the `build` directory:
-```
+```bash
 ./src/main
 ```
 
